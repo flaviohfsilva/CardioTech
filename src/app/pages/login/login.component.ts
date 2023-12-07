@@ -23,9 +23,18 @@ export class LoginComponent {
   public ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
       crm: ['', Validators.required],
-      senha: ['', Validators.required]
+      senha: ['', Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d).*$/)]
     });
   }
+
+  get crm(){
+    return this.formLogin.get('crm')!;
+  }
+
+  get senha(){
+    return this.formLogin.get('senha')!;
+  }
+
 
   login(){
     const { crm, senha } = this.formLogin.value
@@ -48,6 +57,10 @@ export class LoginComponent {
   }
 
   onSubmit(){
+    if(this.formLogin.invalid){
+      return;
+    }
+    
     this.login()
   }
 

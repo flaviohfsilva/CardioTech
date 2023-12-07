@@ -24,21 +24,34 @@
 
             <!--NAME-->
             <label for="CRM"></label><br>
-            <input class="form-inputs" placeholder="CRM" type="text" name="CRM" id="user" formControlName="crm">
+            <input class="form-inputs" placeholder="CRM" type="text" name="CRM" id="user" formControlName="crm" required="">
             <!-- O (focus) é um evento de interação do usuário que é acionado quando o elemento html recebe o foco, nesse caso, quando os inputs são selecionados-->
             <!-- ----------------- NAME VALIDATION ----------------- -->
-            <!-- <div *ngIf="nome.invalid && nome.touched" class="error-validation">
-                <p *ngIf="nome.errors?.['required']">Por favor, insira o seu nome.</p>
-            </div> -->
+            <div *ngIf="crm.invalid && crm.touched" class="error-validation">
+              <p *ngIf="crm.errors?.['required']" style="font-size: 12px; color: red;">Por favor, insira o seu CRM.</p>
+          </div>
 
             <!--PASSWORD-->
             <br><label for="senha" ></label><br>
             <input class="form-inputs" placeholder="Senha" type="{{showPass ? 'text' : 'password'}}" name="senha" id="senha" formControlName="senha">
             <!-- ?: operador ternário | type="{{showPass ? 'text' : 'password'}}": Permite alterar entre mostrar o texto e ocultar com o password | ?: operador ternário, representa o if-else -->
 
+
+            <!-- ----------------- PASS VALIDATION 1 ----------------- -->
+            <div *ngIf="senha.invalid && senha.touched" class="error-validation">
+              <p *ngIf="senha.errors?.['required']" style="font-size: 12px; color: red;">Por favor, insira a sua senha.</p>
+          </div>
+
+          <!-- ----------------- PASS VALIDATION 2----------------- -->
+          <div *ngIf="formLogin.get('senha')?.errors?.['minlength'] || formLogin.get('senha')?.errors?.['pattern']" class="error-validation">
+            <p style="font-size: 12px; color: --color-red;">A senha deve conter letras e números,<br>com o mínimo de 6 caracteres.</p>
+          </div>
+
+
+
             <div class="forget-password">
 
-                <input type="checkbox" id="lembrarSenha" name="lembrarSenha" value="senha">
+                <input type="checkbox" id="lembrarSenha" name="lembrarSenha" value="senha" required>
                 <label for="lembrarSenha"> Lembrar senha </label>
 
                 <a class="forget-pass" routerLink="/password-recover"><u>Esqueceu a senha?</u></a>
@@ -46,9 +59,9 @@
             </div>
             <!--<button class="btn-Entrar" id="submit-btn" type="submit">Entrar</button>-->
 
-            <button class="btn-signIn"> Entrar</button>
             <!-- <br><bt class="btn-signIn "> Entrar </bt><br> -->
 
+            <button class="btn-signIn" type="submit"> Entrar</button>
           </form>
         </form>
 
